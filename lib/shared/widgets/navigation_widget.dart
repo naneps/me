@@ -10,9 +10,17 @@ class NavigationProvider extends ChangeNotifier {
   }
 }
 
+enum NavigationType { vertical, horizontal }
+
 class NavigationWidget extends StatelessWidget {
   final Function(int) onItemSelected;
-  const NavigationWidget({super.key, required this.onItemSelected});
+  final NavigationType navigationType;
+
+  const NavigationWidget({
+    super.key,
+    required this.onItemSelected,
+    this.navigationType = NavigationType.vertical, // Default to vertical
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,21 +55,38 @@ class NavigationWidget extends StatelessWidget {
         border: Border.all(color: Theme.of(context).dividerColor),
       ),
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: List.generate(items.length, (index) {
-          final item = items[index];
-          return _NavigationItem(
-            index: index,
-            isSelected: currentIndex == index,
-            icon: item['icon']! as IconData,
-            activeIcon: item['activeIcon']! as IconData,
-            label: item['label']! as String,
-            onTap: () => onItemSelected(index),
-          );
-        }),
-      ),
+      child:
+          navigationType == NavigationType.vertical
+              ? Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(items.length, (index) {
+                  final item = items[index];
+                  return _NavigationItem(
+                    index: index,
+                    isSelected: currentIndex == index,
+                    icon: item['icon']! as IconData,
+                    activeIcon: item['activeIcon']! as IconData,
+                    label: item['label']! as String,
+                    onTap: () => onItemSelected(index),
+                  );
+                }),
+              )
+              : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: List.generate(items.length, (index) {
+                  final item = items[index];
+                  return _NavigationItem(
+                    index: index,
+                    isSelected: currentIndex == index,
+                    icon: item['icon']! as IconData,
+                    activeIcon: item['activeIcon']! as IconData,
+                    label: item['label']! as String,
+                    onTap: () => onItemSelected(index),
+                  );
+                }),
+              ),
     );
   }
 }

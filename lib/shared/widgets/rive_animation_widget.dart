@@ -13,7 +13,9 @@ class _RiveCatAnimationState extends State<RiveCatAnimation> {
   Widget build(BuildContext context) {
     return RiveAnimation.asset(
       'assets/rive/cat.riv',
-      fit: BoxFit.contain,
+      fit: BoxFit.fitHeight,
+      speedMultiplier: 0.5,
+
       stateMachines: const ['State Machine 1'],
     );
   }

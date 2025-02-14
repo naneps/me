@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:me/core/widgets/core_content_widget.dart';
+import 'package:me/features/chat_bot/screens/chat_bot_screen.dart';
 import 'package:me/features/portfolio/screens/aboutme_view.dart';
 import 'package:me/features/portfolio/screens/experiences_view.dart';
 import 'package:me/features/portfolio/screens/projects_view.dart';
 import 'package:me/features/portfolio/screens/skils_view.dart';
+import 'package:me/providers/core_provider.dart';
 import 'package:me/shared/widgets/navigation_widget.dart';
 import 'package:me/shared/widgets/rive_animation_widget.dart';
 import 'package:provider/provider.dart';
@@ -23,31 +26,65 @@ class _CoreViewState extends State<CoreView> {
     ProjectsView(),
     SkillsView(),
   ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
+      body: Stack(
+        alignment: Alignment.bottomCenter,
         children: [
-          Expanded(
-            child: Center(
-              child: NavigationWidget(onItemSelected: _scrollToIndex),
-            ),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              return Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        NavigationWidget(onItemSelected: _scrollToIndex),
+                        const SizedBox(height: 10),
+                        IconButton.outlined(
+                          iconSize: 25,
+                          style: IconButton.styleFrom(
+                            backgroundColor: Theme.of(context).canvasColor,
+                            fixedSize: Size(55, 55),
+                          ),
+                          onPressed: () {
+                            context.read<CoreProvider>().toggleChat();
+                          },
+                          icon: const Icon(Icons.chat_bubble),
+                          tooltip: 'Chat Bot',
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    flex: 7,
+                    child: CoreContentWidget(
+                      scrollController: _scrollController,
+                      screens: _screens,
+                      sectionKeys: _sectionKeys,
+                    ),
+                  ),
+                  Expanded(child: RiveCatAnimation()),
+                ],
+              );
+            },
           ),
-          Expanded(
-            flex: 7,
-            child: ListView.separated(
-              padding: const EdgeInsets.all(20),
-              separatorBuilder: (context, index) => const SizedBox(height: 15),
-              controller: _scrollController,
-              physics: BouncingScrollPhysics(),
-              itemCount: _screens.length,
-              itemBuilder: (context, index) {
-                final key = _sectionKeys[index];
-                return SizedBox(key: key, child: _screens[index]);
-              },
-            ),
+
+          Consumer<CoreProvider>(
+            builder: (context, coreProvider, child) {
+              return AnimatedPositioned(
+                duration: Duration(milliseconds: 300),
+                left: 20,
+                bottom: coreProvider.isChatOpen ? 20 : -500,
+                child: ChatBotScreen(),
+              );
+            },
           ),
-          Expanded(child: RiveCatAnimation()),
         ],
       ),
     );

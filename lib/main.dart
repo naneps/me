@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:me/core/core_view.dart';
+import 'package:me/providers/core_provider.dart';
 import 'package:me/providers/theme_provider.dart';
 import 'package:me/services/local_storage_service.dart';
 import 'package:me/shared/themes/theme.dart';
@@ -24,6 +25,7 @@ class MainApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
+        ChangeNotifierProvider(create: (_) => CoreProvider()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, value, child) {
