@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class CoreContentWidget extends StatelessWidget {
   final ScrollController _scrollController;
-
   final List<Widget> _screens;
   final List<GlobalKey<State<StatefulWidget>>> _sectionKeys;
   const CoreContentWidget({
@@ -17,9 +16,8 @@ class CoreContentWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: const EdgeInsets.all(20),
-      separatorBuilder: (context, index) => const SizedBox(height: 15),
       controller: _scrollController,
+      separatorBuilder: (context, index) => const SizedBox(height: 10),
       physics: BouncingScrollPhysics(),
       itemCount: _screens.length,
       itemBuilder: (context, index) {

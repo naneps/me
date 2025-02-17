@@ -63,6 +63,7 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
               ),
             ],
           ),
+          Divider(),
           Expanded(
             child: ListView.builder(
               itemCount: _messages.length,
@@ -82,13 +83,18 @@ class _ChatBotScreenState extends State<ChatBotScreen> {
                       decoration: BoxDecoration(
                         color:
                             _messages[index].startsWith("You:")
-                                ? Colors.blue[100]
-                                : Colors.grey[300],
+                                ? Theme.of(context).colorScheme.primary
+                                : Theme.of(context).colorScheme.secondary,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(
                         _messages[index],
-                        style: TextStyle(fontSize: 16),
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color:
+                              _messages[index].startsWith("You:")
+                                  ? Theme.of(context).colorScheme.onPrimary
+                                  : Theme.of(context).colorScheme.onSecondary,
+                        ),
                       ),
                     ),
                   ),

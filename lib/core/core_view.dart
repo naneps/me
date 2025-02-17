@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:me/core/widgets/core_content_widget.dart';
 import 'package:me/features/chat_bot/screens/chat_bot_screen.dart';
 import 'package:me/features/portfolio/screens/aboutme_view.dart';
@@ -6,8 +7,10 @@ import 'package:me/features/portfolio/screens/experiences_view.dart';
 import 'package:me/features/portfolio/screens/projects_view.dart';
 import 'package:me/features/portfolio/screens/skils_view.dart';
 import 'package:me/providers/core_provider.dart';
+import 'package:me/shared/widgets/button_toggle_theme.dart';
 import 'package:me/shared/widgets/navigation_widget.dart';
 import 'package:me/shared/widgets/rive_animation_widget.dart';
+import 'package:me/shared/widgets/social_buttons.dart';
 import 'package:provider/provider.dart';
 
 class CoreView extends StatefulWidget {
@@ -55,7 +58,7 @@ class _CoreViewState extends State<CoreView> {
                           onPressed: () {
                             context.read<CoreProvider>().toggleChat();
                           },
-                          icon: const Icon(Icons.chat_bubble),
+                          icon: const Icon(LucideIcons.messageCircleCode),
                           tooltip: 'Chat Bot',
                         ),
                       ],
@@ -69,7 +72,16 @@ class _CoreViewState extends State<CoreView> {
                       sectionKeys: _sectionKeys,
                     ),
                   ),
-                  Expanded(child: RiveCatAnimation()),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        ButtonToggleTheme(),
+                        SocialButtons(),
+                        SizedBox(height: 350, child: RiveCatAnimation()),
+                      ],
+                    ),
+                  ),
                 ],
               );
             },

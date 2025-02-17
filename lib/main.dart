@@ -6,6 +6,7 @@ import 'package:me/services/local_storage_service.dart';
 import 'package:me/shared/themes/theme.dart';
 import 'package:me/shared/themes/util.dart';
 import 'package:me/shared/widgets/navigation_widget.dart';
+import 'package:me/shared/widgets/social_buttons.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -16,7 +17,6 @@ void main() async {
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = createTextTheme(context, "Inter", "Poppins");
@@ -26,6 +26,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => CoreProvider()),
+        ChangeNotifierProvider(create: (_) => SocialButtonsProvider()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, value, child) {

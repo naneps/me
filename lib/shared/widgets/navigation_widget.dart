@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:provider/provider.dart';
 
 class NavigationProvider extends ChangeNotifier {
@@ -27,8 +28,8 @@ class NavigationWidget extends StatelessWidget {
     final currentIndex = context.watch<NavigationProvider>().index;
     final items = [
       {
-        'icon': Icons.person_outline,
-        'activeIcon': Icons.person,
+        'icon': LucideIcons.user,
+        'activeIcon': LucideIcons.userRound,
         'label': "About me",
       },
       {
@@ -37,14 +38,14 @@ class NavigationWidget extends StatelessWidget {
         'label': "Experience",
       },
       {
-        'icon': Icons.work_outline,
-        'activeIcon': Icons.work,
+        'icon': LucideIcons.laptop,
+        'activeIcon': LucideIcons.laptopMinimalCheck,
         'label': "Projects",
       },
       {
-        'icon': Icons.school_outlined,
-        'activeIcon': Icons.school,
-        'label': "Education",
+        'icon': LucideIcons.book,
+        'activeIcon': LucideIcons.bookOpen,
+        'label': "Skills",
       },
     ];
 
@@ -110,28 +111,36 @@ class _NavigationItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: AnimatedContainer(
-        width: 40,
-        height: 40,
-        curve: Curves.easeInOutBack,
-        duration: const Duration(milliseconds: 300),
-        margin: const EdgeInsets.symmetric(vertical: 5),
-        decoration: BoxDecoration(
-          color: isSelected ? Theme.of(context).colorScheme.primary : null,
-          shape: isSelected ? BoxShape.circle : BoxShape.rectangle,
-        ),
-        alignment: Alignment.center,
-        child: AnimatedSwitcher(
+    return Tooltip(
+      message: label,
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.primary,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: GestureDetector(
+        onTap: onTap,
+        child: AnimatedContainer(
+          width: 40,
+          height: 40,
+          curve: Curves.easeInOutBack,
           duration: const Duration(milliseconds: 300),
-          transitionBuilder: (child, animation) {
-            return ScaleTransition(scale: animation, child: child);
-          },
-          child: Icon(
-            isSelected ? activeIcon : icon,
-            key: ValueKey<bool>(isSelected),
-            color: isSelected ? Theme.of(context).colorScheme.onPrimary : null,
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          decoration: BoxDecoration(
+            color: isSelected ? Theme.of(context).colorScheme.primary : null,
+            shape: isSelected ? BoxShape.circle : BoxShape.rectangle,
+          ),
+          alignment: Alignment.center,
+          child: AnimatedSwitcher(
+            duration: const Duration(milliseconds: 300),
+            transitionBuilder: (child, animation) {
+              return ScaleTransition(scale: animation, child: child);
+            },
+            child: Icon(
+              isSelected ? activeIcon : icon,
+              key: ValueKey<bool>(isSelected),
+              color:
+                  isSelected ? Theme.of(context).colorScheme.onPrimary : null,
+            ),
           ),
         ),
       ),
