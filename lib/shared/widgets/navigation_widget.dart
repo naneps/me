@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:provider/provider.dart';
 
@@ -64,13 +65,22 @@ class NavigationWidget extends StatelessWidget {
                 children: List.generate(items.length, (index) {
                   final item = items[index];
                   return _NavigationItem(
-                    index: index,
-                    isSelected: currentIndex == index,
-                    icon: item['icon']! as IconData,
-                    activeIcon: item['activeIcon']! as IconData,
-                    label: item['label']! as String,
-                    onTap: () => onItemSelected(index),
-                  );
+                        index: index,
+                        isSelected: currentIndex == index,
+                        icon: item['icon']! as IconData,
+                        activeIcon: item['activeIcon']! as IconData,
+                        label: item['label']! as String,
+                        onTap: () => onItemSelected(index),
+                      )
+                      .animate(
+                        onPlay:
+                            (controller) => controller.repeat(reverse: true),
+                      )
+                      .shimmer(
+                        delay: 3100.ms,
+                        curve: Curves.easeInOutBack,
+                        angle: 3.14,
+                      );
                 }),
               )
               : Row(

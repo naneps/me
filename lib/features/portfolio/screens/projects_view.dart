@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:me/shared/widgets/button_toggle_theme.dart';
 import 'package:me/shared/widgets/section_wrapper.dart';
 
 class ProjectsView extends StatelessWidget {
@@ -9,7 +8,19 @@ class ProjectsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionWrapper(
       size: Size.fromHeight(MediaQuery.of(context).size.height),
-      child: ButtonToggleTheme(),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Projects", style: Theme.of(context).textTheme.titleSmall),
+              ],
+            ),
+          ),
+          Expanded(child: Container()),
+        ],
+      ),
     );
   }
 }

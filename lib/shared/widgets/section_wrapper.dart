@@ -26,13 +26,81 @@ class SectionWrapper extends StatelessWidget {
         height: size?.height,
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(color: Theme.of(context).canvasColor),
-        child: child,
+        child: Column(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(color: Theme.of(context).dividerColor),
+              ),
+              child: Row(
+                spacing: 10,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _ActionBar(),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    child: TextField(
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        filled: true,
+                        fillColor:
+                            Theme.of(
+                              context,
+                            ).colorScheme.surfaceContainerHighest,
+                        hintText: 'Search',
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+                ],
+              ),
+            ),
+            Expanded(child: child),
+          ],
+        ),
       ),
     ).animate().saturate(
       begin: 0,
       end: 1,
       delay: 100.ms,
       curve: Curves.easeInOutBack,
+    );
+  }
+}
+
+class _ActionBar extends StatelessWidget {
+  const _ActionBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          onPressed: () {},
+          iconSize: 15,
+          color: Colors.redAccent,
+          icon: const Icon(Icons.circle),
+        ),
+        IconButton(
+          onPressed: () {},
+          iconSize: 15,
+          color: Colors.amberAccent,
+          icon: const Icon(Icons.circle),
+        ),
+        IconButton(
+          onPressed: () {},
+          iconSize: 15,
+          color: Colors.greenAccent,
+          icon: const Icon(Icons.circle),
+        ),
+      ],
     );
   }
 }

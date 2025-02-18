@@ -77,6 +77,7 @@ class _CoreViewState extends State<CoreView> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         ButtonToggleTheme(),
+                        const SizedBox(height: 10),
                         SocialButtons(),
                         SizedBox(height: 350, child: RiveCatAnimation()),
                       ],

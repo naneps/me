@@ -8,9 +8,11 @@ TextTheme createTextTheme(
 ) {
   TextTheme baseTextTheme = Theme.of(context).textTheme;
 
-  TextTheme bodyTextTheme = GoogleFonts.firaCodeTextTheme(baseTextTheme);
+  TextTheme bodyTextTheme = GoogleFonts.sourceCodeProTextTheme(baseTextTheme);
 
-  TextTheme displayTextTheme = GoogleFonts.firaCodeTextTheme(baseTextTheme);
+  TextTheme displayTextTheme = GoogleFonts.sourceCodeProTextTheme(
+    baseTextTheme,
+  );
 
   return baseTextTheme.copyWith(
     bodyLarge: bodyTextTheme.bodyLarge?.copyWith(fontSize: 18, height: 1.6),

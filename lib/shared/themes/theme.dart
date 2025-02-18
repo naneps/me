@@ -58,6 +58,29 @@ class MaterialTheme {
       bodyColor: colorScheme.onSurface,
       displayColor: colorScheme.onSurface,
     ),
+
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(
+        foregroundColor: colorScheme.onSurface,
+        backgroundColor: colorScheme.surface,
+        shape: const CircleBorder(),
+        visualDensity: VisualDensity.compact,
+        padding: EdgeInsets.zero,
+        splashFactory: NoSplash.splashFactory,
+        minimumSize: const Size(30, 30),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      isDense: true,
+      contentPadding: EdgeInsets.symmetric(vertical: 5),
+      filled: true,
+      fillColor: colorScheme.surfaceContainerHighest,
+      border: OutlineInputBorder(
+        borderSide: BorderSide.none,
+        borderRadius: BorderRadius.circular(15),
+      ),
+    ),
+    dividerColor: colorScheme.outlineVariant,
     scaffoldBackgroundColor: colorScheme.surface,
     canvasColor: colorScheme.surface,
   );
@@ -107,7 +130,7 @@ class MaterialTheme {
       surfaceBright: Color(0xff36393f),
       surfaceContainerLowest: Color(0xff0b0e13),
       surfaceContainerLow: Color(0xff181c21),
-      surfaceContainer: Color(0xff1c2025),
+      surfaceContainer: Color.fromARGB(255, 253, 249, 249),
       surfaceContainerHigh: Color(0xff272a2f),
       surfaceContainerHighest: Color(0xff32353a),
     );

@@ -1,5 +1,7 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:me/core/core_view.dart';
+import 'package:me/firebase_options.dart';
 import 'package:me/providers/core_provider.dart';
 import 'package:me/providers/theme_provider.dart';
 import 'package:me/services/local_storage_service.dart';
@@ -10,8 +12,11 @@ import 'package:me/shared/widgets/social_buttons.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
   await LocalStorageService().init();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {

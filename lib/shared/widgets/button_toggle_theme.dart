@@ -14,12 +14,17 @@ class ButtonToggleTheme extends StatelessWidget {
           transitionBuilder:
               (Widget child, Animation<double> animation) =>
                   ScaleTransition(scale: animation, child: child),
-          child: IconButton(
+          child: IconButton.outlined(
             icon:
                 provider.themeMode == ThemeMode.light
                     ? const Icon(Icons.dark_mode)
                     : const Icon(Icons.light_mode),
             key: ValueKey(provider.themeMode),
+            iconSize: 25,
+            style: IconButton.styleFrom(
+              backgroundColor: Theme.of(context).canvasColor,
+              fixedSize: Size(55, 55),
+            ),
             onPressed: () {
               provider.toggleTheme();
             },
