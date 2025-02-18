@@ -33,72 +33,87 @@ class _CoreViewState extends State<CoreView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        alignment: Alignment.bottomCenter,
-        children: [
-          LayoutBuilder(
-            builder: (context, constraints) {
-              return Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        NavigationWidget(onItemSelected: _scrollToIndex),
-                        const SizedBox(height: 10),
-                        IconButton.outlined(
-                          iconSize: 25,
-                          style: IconButton.styleFrom(
-                            backgroundColor: Theme.of(context).canvasColor,
-                            fixedSize: Size(55, 55),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: const [0, 0.3, 0.9, 1],
+            colors: [
+              Theme.of(context).colorScheme.onSurface,
+              Theme.of(context).colorScheme.onSurface,
+              Theme.of(context).colorScheme.surface,
+              Theme.of(context).colorScheme.surface,
+            ],
+          ),
+        ),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            LayoutBuilder(
+              builder: (context, constraints) {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          NavigationWidget(onItemSelected: _scrollToIndex),
+                          const SizedBox(height: 10),
+                          ButtonToggleTheme(),
+                        ],
+                      ),
+                    ),
+                    Expanded(
+                      flex: 7,
+                      child: CoreContentWidget(
+                        scrollController: _scrollController,
+                        screens: _screens,
+                        sectionKeys: _sectionKeys,
+                      ),
+                    ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton.outlined(
+                            iconSize: 25,
+                            style: IconButton.styleFrom(
+                              backgroundColor: Theme.of(context).canvasColor,
+                              fixedSize: Size(55, 55),
+                            ),
+                            onPressed: () {
+                              context.read<CoreProvider>().toggleChat();
+                            },
+                            icon: const Icon(LucideIcons.messageCircleCode),
+                            tooltip: 'Chat Bot',
                           ),
-                          onPressed: () {
-                            context.read<CoreProvider>().toggleChat();
-                          },
-                          icon: const Icon(LucideIcons.messageCircleCode),
-                          tooltip: 'Chat Bot',
-                        ),
-                      ],
+                          const SizedBox(height: 10),
+                          SocialButtons(),
+                          SizedBox(height: 350, child: RiveCatAnimation()),
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 7,
-                    child: CoreContentWidget(
-                      scrollController: _scrollController,
-                      screens: _screens,
-                      sectionKeys: _sectionKeys,
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ButtonToggleTheme(),
-                        const SizedBox(height: 10),
-                        SocialButtons(),
-                        SizedBox(height: 350, child: RiveCatAnimation()),
-                      ],
-                    ),
-                  ),
-                ],
-              );
-            },
-          ),
+                  ],
+                );
+              },
+            ),
 
-          Consumer<CoreProvider>(
-            builder: (context, coreProvider, child) {
-              return AnimatedPositioned(
-                duration: Duration(milliseconds: 300),
-                left: 20,
-                bottom: coreProvider.isChatOpen ? 20 : -500,
-                child: ChatBotScreen(),
-              );
-            },
-          ),
-        ],
+            Consumer<CoreProvider>(
+              builder: (context, coreProvider, child) {
+                return AnimatedPositioned(
+                  duration: Duration(milliseconds: 300),
+                  right: 20,
+                  bottom: coreProvider.isChatOpen ? 20 : -500,
+                  child: ChatBotScreen(),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

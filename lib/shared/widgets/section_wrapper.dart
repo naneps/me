@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:me/shared/widgets/border_glow/lib/glowy_borders.dart';
 
 class SectionWrapper extends StatelessWidget {
@@ -30,6 +29,7 @@ class SectionWrapper extends StatelessWidget {
           children: [
             Container(
               padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.only(bottom: 10),
               decoration: BoxDecoration(
                 color: Theme.of(context).canvasColor,
                 borderRadius: BorderRadius.circular(15),
@@ -46,7 +46,7 @@ class SectionWrapper extends StatelessWidget {
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
                           borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(15),
+                          borderRadius: BorderRadius.circular(8),
                         ),
                         filled: true,
                         fillColor:
@@ -66,11 +66,6 @@ class SectionWrapper extends StatelessWidget {
           ],
         ),
       ),
-    ).animate().saturate(
-      begin: 0,
-      end: 1,
-      delay: 100.ms,
-      curve: Curves.easeInOutBack,
     );
   }
 }

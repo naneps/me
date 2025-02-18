@@ -7,6 +7,7 @@ import 'package:me/providers/theme_provider.dart';
 import 'package:me/services/local_storage_service.dart';
 import 'package:me/shared/themes/theme.dart';
 import 'package:me/shared/themes/util.dart';
+import 'package:me/shared/widgets/gemini_service.dart';
 import 'package:me/shared/widgets/navigation_widget.dart';
 import 'package:me/shared/widgets/social_buttons.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,10 @@ class MainApp extends StatelessWidget {
     MaterialTheme theme = MaterialTheme(textTheme);
     return MultiProvider(
       providers: [
+        Provider(
+          create:
+              (_) => GeminiService("AIzaSyBVetPjBZhT5MzajWT4r5uw9JXaif2b7P0"),
+        ),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => CoreProvider()),

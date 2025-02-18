@@ -71,17 +71,18 @@ class MaterialTheme {
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      isDense: true,
-      contentPadding: EdgeInsets.symmetric(vertical: 5),
       filled: true,
+      contentPadding: EdgeInsets.symmetric(vertical: 5),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
       fillColor: colorScheme.surfaceContainerHighest,
       border: OutlineInputBorder(
         borderSide: BorderSide.none,
         borderRadius: BorderRadius.circular(15),
       ),
+      hintStyle: TextStyle(color: colorScheme.onSurfaceVariant, fontSize: 14),
     ),
     dividerColor: colorScheme.outlineVariant,
-    scaffoldBackgroundColor: colorScheme.surface,
+    scaffoldBackgroundColor: colorScheme.onSurface,
     canvasColor: colorScheme.surface,
   );
 
