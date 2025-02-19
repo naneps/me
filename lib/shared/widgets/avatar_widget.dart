@@ -49,7 +49,11 @@ class AvatarWidget extends StatelessWidget {
                 .animate(
                   onPlay: (controller) => controller.repeat(reverse: true),
                 )
-                .shimmer(delay: 2000.ms),
+                .shimmer(
+                  delay: 2000.ms,
+                  duration: 1000.ms,
+                  curve: Curves.easeIn,
+                ),
           );
         },
       ),

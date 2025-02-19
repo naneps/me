@@ -52,7 +52,7 @@ class AnimatedGradientBorderProvider extends ChangeNotifier {
     });
 
     _angleAnimation = Tween<double>(
-      begin: 0.2,
+      begin: 0.0,
       end: 2 * math.pi,
     ).animate(_controller);
     _controller.repeat(

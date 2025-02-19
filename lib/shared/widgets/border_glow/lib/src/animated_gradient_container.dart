@@ -24,6 +24,7 @@ class AnimatedGradientContainer extends StatelessWidget {
             ...gradientColors.reversed,
           ]),
           transform: GradientRotation(gradientAngle),
+          tileMode: TileMode.repeated,
         ),
       ),
     );

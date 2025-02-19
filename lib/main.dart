@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:me/core/core_view.dart';
 import 'package:me/firebase_options.dart';
 import 'package:me/providers/core_provider.dart';
+import 'package:me/providers/skill_provider.dart';
 import 'package:me/providers/theme_provider.dart';
 import 'package:me/services/local_storage_service.dart';
 import 'package:me/shared/themes/theme.dart';
@@ -30,18 +31,20 @@ class MainApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(
-          create:
-              (_) => GeminiService("AIzaSyBVetPjBZhT5MzajWT4r5uw9JXaif2b7P0"),
+          create: (_) {
+            return GeminiService("AIzaSyBVetPjBZhT5MzajWT4r5uw9JXaif2b7P0");
+          },
         ),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => CoreProvider()),
         ChangeNotifierProvider(create: (_) => SocialButtonsProvider()),
+        ChangeNotifierProvider(create: (_) => SkillsProvider()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, value, child) {
           return MaterialApp(
-            title: 'Flutter Demo',
+            title: 'Me',
             debugShowCheckedModeBanner: false,
             darkTheme: theme.dark(),
             theme: theme.light(),

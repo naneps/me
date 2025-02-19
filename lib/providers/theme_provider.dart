@@ -5,7 +5,6 @@ import 'package:me/services/local_storage_service.dart';
 class ThemeProvider extends ChangeNotifier {
   ThemeMode _themeMode = ThemeMode.light;
   late final LocalStorageService _localStorageService;
-
   ThemeProvider() {
     _localStorageService = LocalStorageService();
     _loadTheme();

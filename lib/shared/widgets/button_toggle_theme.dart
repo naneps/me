@@ -26,6 +26,9 @@ class ButtonToggleTheme extends StatelessWidget {
               fixedSize: Size(55, 55),
             ),
             onPressed: () {
+              //   ThemeSwitcher.of(context).changeTheme(
+              //     isReversed: true
+              //   );
               provider.toggleTheme();
             },
           ),

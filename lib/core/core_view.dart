@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:me/core/widgets/core_content_widget.dart';
 import 'package:me/features/chat_bot/screens/chat_bot_screen.dart';
 import 'package:me/features/portfolio/screens/aboutme_view.dart';
@@ -8,6 +8,7 @@ import 'package:me/features/portfolio/screens/projects_view.dart';
 import 'package:me/features/portfolio/screens/skils_view.dart';
 import 'package:me/providers/core_provider.dart';
 import 'package:me/shared/widgets/button_toggle_theme.dart';
+import 'package:me/shared/widgets/chat_bot_button.dart';
 import 'package:me/shared/widgets/navigation_widget.dart';
 import 'package:me/shared/widgets/rive_animation_widget.dart';
 import 'package:me/shared/widgets/social_buttons.dart';
@@ -50,6 +51,17 @@ class _CoreViewState extends State<CoreView> {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
+            Positioned.fill(
+              child: Container()
+                  .animate(
+                    onPlay: (controller) => controller.repeat(reverse: true),
+                  )
+                  .shimmer(
+                    delay: 1100.ms,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+            ),
+
             LayoutBuilder(
               builder: (context, constraints) {
                 return Row(
@@ -79,18 +91,7 @@ class _CoreViewState extends State<CoreView> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          IconButton.outlined(
-                            iconSize: 25,
-                            style: IconButton.styleFrom(
-                              backgroundColor: Theme.of(context).canvasColor,
-                              fixedSize: Size(55, 55),
-                            ),
-                            onPressed: () {
-                              context.read<CoreProvider>().toggleChat();
-                            },
-                            icon: const Icon(LucideIcons.messageCircleCode),
-                            tooltip: 'Chat Bot',
-                          ),
+                          ChatBotButton(),
                           const SizedBox(height: 10),
                           SocialButtons(),
                           SizedBox(height: 350, child: RiveCatAnimation()),
