@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:lucide_icons_flutter/lucide_icons.dart';
 import 'package:me/shared/widgets/avatar_widget.dart';
+import 'package:me/shared/widgets/cv_button.dart';
 import 'package:me/shared/widgets/section_wrapper.dart';
 
 class AboutMeView extends StatelessWidget {
@@ -84,17 +84,7 @@ class AboutMeView extends StatelessWidget {
                   color: Theme.of(context).colorScheme.surfaceTint,
                 ),
           ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-
-            children: [
-              OutlinedButton.icon(
-                onPressed: () {},
-                icon: Icon(LucideIcons.download),
-                label: Text("Download CV"),
-              ),
-            ],
-          ),
+          CVButton(),
         ],
       ),
     );

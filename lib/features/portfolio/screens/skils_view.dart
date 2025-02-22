@@ -11,59 +11,69 @@ class SkillsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final skillsProvider = Provider.of<SkillsProvider>(context)..setSkills();
+    return Consumer<SkillsProvider>(
+      builder: (context, skillsProvider, child) {
+        return SectionWrapper(
+          size: Size.fromHeight(MediaQuery.of(context).size.height),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
+            spacing: 20,
+            children: [
+              Text(
+                "What i use ?",
+                style: Theme.of(context).textTheme.titleMedium,
+              ),
+              SizedBox(
+                height: 75,
+                width: MediaQuery.of(context).size.width,
+                child: ScrollingListView<Skill>(
+                  items:
+                      skillsProvider.programmingLanguages
+                          .map((e) => e)
+                          .toList(),
+                  autoScroll: true,
+                  scrollDuration: const Duration(milliseconds: 500),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, item, index) {
+                    return SkillWidget(item: item);
+                  },
+                ),
+              ),
+              SizedBox(
+                height: 75,
+                width: MediaQuery.of(context).size.width,
+                child: ScrollingListView<Skill>(
+                  items:
+                      skillsProvider.technologiesFrameworks
+                          .map((e) => e)
+                          .toList(),
+                  autoScroll: true,
+                  scrollDuration: const Duration(milliseconds: 500),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, item, index) {
+                    return SkillWidget(item: item);
+                  },
+                ),
+              ),
 
-    return SectionWrapper(
-      size: Size.fromHeight(MediaQuery.of(context).size.height),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.start,
-        spacing: 20,
-        children: [
-          Text("What i use ?", style: Theme.of(context).textTheme.titleMedium),
-          SizedBox(
-            height: 75,
-            width: MediaQuery.of(context).size.width,
-            child: ScrollingListView<Skill>(
-              items: skillsProvider.programmingLanguages.map((e) => e).toList(),
-              autoScroll: true,
-              scrollDuration: const Duration(milliseconds: 500),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, item, index) {
-                return SkillWidget(item: item);
-              },
-            ),
+              SizedBox(
+                height: 75,
+                width: MediaQuery.of(context).size.width,
+                child: ScrollingListView<Skill>(
+                  items: skillsProvider.tools.map((e) => e).toList(),
+                  autoScroll: true,
+                  scrollDuration: const Duration(milliseconds: 500),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (context, item, index) {
+                    return SkillWidget(item: item);
+                  },
+                ),
+              ),
+            ],
           ),
-          SizedBox(
-            height: 75,
-            width: MediaQuery.of(context).size.width,
-            child: ScrollingListView<Skill>(
-              items:
-                  skillsProvider.technologiesFrameworks.map((e) => e).toList(),
-              autoScroll: true,
-              scrollDuration: const Duration(milliseconds: 500),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, item, index) {
-                return SkillWidget(item: item);
-              },
-            ),
-          ),
-
-          SizedBox(
-            height: 75,
-            width: MediaQuery.of(context).size.width,
-            child: ScrollingListView<Skill>(
-              items: skillsProvider.tools.map((e) => e).toList(),
-              autoScroll: true,
-              scrollDuration: const Duration(milliseconds: 500),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, item, index) {
-                return SkillWidget(item: item);
-              },
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

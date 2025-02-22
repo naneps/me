@@ -5,7 +5,12 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialButtons extends StatelessWidget {
-  const SocialButtons({super.key});
+  final SocialButtonsDirection direction;
+
+  const SocialButtons({
+    super.key,
+    this.direction = SocialButtonsDirection.vertical,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +25,11 @@ class SocialButtons extends StatelessWidget {
         borderRadius: BorderRadius.circular(30),
         border: Border.all(color: Theme.of(context).dividerColor),
       ),
-      child: Column(
+      child: Flex(
+        direction:
+            direction == SocialButtonsDirection.vertical
+                ? Axis.vertical
+                : Axis.horizontal,
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: List.generate(socials.length, (i) {
@@ -50,7 +59,7 @@ class SocialButtons extends StatelessWidget {
                         end: 1.1,
                         duration: 800.ms,
                         curve: Curves.easeInOutBack,
-                        delay: (i * 300).ms, // Delay animasi bergantian
+                        delay: (i * 300).ms,
                       ),
                 ),
               ),
@@ -62,11 +71,13 @@ class SocialButtons extends StatelessWidget {
   }
 }
 
+enum SocialButtonsDirection { vertical, horizontal }
+
 class SocialButtonsProvider extends ChangeNotifier {
   List<Map<String, dynamic>> socials = [
     {
       'name': 'Instagram',
-      'link': 'https://www.instagram.com/nannnde/',
+      'link': 'https://www.instagram.com/_nannnde/',
       'icon': LucideIcons.instagram,
     },
     {

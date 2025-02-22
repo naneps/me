@@ -17,6 +17,7 @@ class AnimatedGradientBorder extends StatefulWidget {
   final int? animationTime;
   final double? animationProgress;
   final bool stretchAlongAxis;
+  final bool reverseAnimation;
   final Axis stretchAxis;
 
   const AnimatedGradientBorder({
@@ -29,6 +30,8 @@ class AnimatedGradientBorder extends StatefulWidget {
     this.glowSize,
     this.animationProgress,
     this.stretchAlongAxis = false,
+    this.reverseAnimation = false,
+
     this.stretchAxis = Axis.horizontal,
   });
 
@@ -39,10 +42,11 @@ class AnimatedGradientBorder extends StatefulWidget {
 class AnimatedGradientBorderProvider extends ChangeNotifier {
   late AnimationController _controller;
   late Animation<double> _angleAnimation;
-
+  bool reverseAnimation = false;
   AnimatedGradientBorderProvider(
     TickerProvider vsync, {
     int animationTime = 2,
+    this.reverseAnimation = false,
   }) {
     _controller = AnimationController(
       vsync: vsync,
@@ -56,9 +60,8 @@ class AnimatedGradientBorderProvider extends ChangeNotifier {
       end: 2 * math.pi,
     ).animate(_controller);
     _controller.repeat(
-      reverse: true,
+      reverse: reverseAnimation,
       period: Duration(seconds: animationTime),
-      count: animationTime * 2,
     ); // repeat animation
   }
 
@@ -175,6 +178,7 @@ class _AnimatedGradientBorderState extends State<AnimatedGradientBorder>
     provider = AnimatedGradientBorderProvider(
       this,
       animationTime: widget.animationTime ?? 2,
+      reverseAnimation: widget.reverseAnimation,
     );
   }
 }

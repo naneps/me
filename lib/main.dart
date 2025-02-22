@@ -39,7 +39,7 @@ class MainApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => NavigationProvider()),
         ChangeNotifierProvider(create: (_) => CoreProvider()),
         ChangeNotifierProvider(create: (_) => SocialButtonsProvider()),
-        ChangeNotifierProvider(create: (_) => SkillsProvider()),
+        ChangeNotifierProvider(create: (_) => SkillsProvider()..setSkills()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, value, child) {

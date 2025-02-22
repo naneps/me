@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:me/providers/chat_bot_provider.dart';
+import 'package:me/providers/core_provider.dart';
 import 'package:me/shared/widgets/gemini_service.dart';
 import 'package:provider/provider.dart';
 
@@ -52,7 +53,12 @@ class ChatBotScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    IconButton(icon: Icon(Icons.close), onPressed: () {}),
+                    IconButton(
+                      icon: Icon(Icons.close),
+                      onPressed: () {
+                        Provider.of<CoreProvider>(context).toggleChat();
+                      },
+                    ),
                   ],
                 ),
                 Divider(),

@@ -1,6 +1,6 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+import 'package:me/shared/widgets/border_glow/lib/glowy_borders.dart';
 
 class CVButton extends StatelessWidget {
   const CVButton({super.key});
@@ -8,17 +8,12 @@ class CVButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blueAccent.withOpacity(0.6),
-              blurRadius: 15,
-              spreadRadius: 3,
-            ),
-          ],
-          borderRadius: BorderRadius.circular(15),
-        ),
+      child: AnimatedGradientBorder(
+        gradientColors: [
+          Theme.of(context).colorScheme.primary,
+          Theme.of(context).colorScheme.onPrimary,
+        ],
+        borderRadius: BorderRadius.circular(15),
         child: ElevatedButton.icon(
           onPressed: () {},
           style: ElevatedButton.styleFrom(
@@ -30,29 +25,7 @@ class CVButton extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           ),
           icon: Icon(LucideIcons.paperclip, color: Colors.blueAccent),
-          label: AnimatedTextKit(
-            repeatForever: true,
-            animatedTexts: [
-              TyperAnimatedText(
-                'My CV Here',
-                textStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.blueAccent,
-                ),
-                speed: Duration(milliseconds: 100),
-              ),
-              TyperAnimatedText(
-                'Click Me!',
-                textStyle: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.redAccent,
-                ),
-                speed: Duration(milliseconds: 100),
-              ),
-            ],
-          ),
+          label: Text("MY CV HERE"),
         ),
       ),
     );

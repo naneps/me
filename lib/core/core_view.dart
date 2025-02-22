@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:me/core/widgets/core_content_widget.dart';
 import 'package:me/features/chat_bot/screens/chat_bot_screen.dart';
 import 'package:me/features/portfolio/screens/aboutme_view.dart';
@@ -9,10 +8,14 @@ import 'package:me/features/portfolio/screens/skils_view.dart';
 import 'package:me/providers/core_provider.dart';
 import 'package:me/shared/widgets/button_toggle_theme.dart';
 import 'package:me/shared/widgets/chat_bot_button.dart';
+import 'package:me/shared/widgets/gradient_mouse_tracking.dart';
 import 'package:me/shared/widgets/navigation_widget.dart';
 import 'package:me/shared/widgets/rive_animation_widget.dart';
 import 'package:me/shared/widgets/social_buttons.dart';
 import 'package:provider/provider.dart';
+
+part 'core_large_screen.dart';
+part 'core_small_screen.dart';
 
 class CoreView extends StatefulWidget {
   const CoreView({super.key});
@@ -34,75 +37,29 @@ class _CoreViewState extends State<CoreView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            stops: const [0, 0.3, 0.9, 1],
-            colors: [
-              Theme.of(context).colorScheme.onSurface,
-              Theme.of(context).colorScheme.onSurface,
-              Theme.of(context).colorScheme.surface,
-              Theme.of(context).colorScheme.surface,
-            ],
-          ),
-        ),
+      body: GradientMouseTracking(
+        scrollController: _scrollController,
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Positioned.fill(
-              child: Container()
-                  .animate(
-                    onPlay: (controller) => controller.repeat(reverse: true),
-                  )
-                  .shimmer(
-                    delay: 1100.ms,
-                    color: Theme.of(context).colorScheme.onSurface,
-                  ),
-            ),
-
             LayoutBuilder(
               builder: (context, constraints) {
-                return Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          NavigationWidget(onItemSelected: _scrollToIndex),
-                          const SizedBox(height: 10),
-                          ButtonToggleTheme(),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      flex: 7,
-                      child: CoreContentWidget(
-                        scrollController: _scrollController,
-                        screens: _screens,
-                        sectionKeys: _sectionKeys,
-                      ),
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          ChatBotButton(),
-                          const SizedBox(height: 10),
-                          SocialButtons(),
-                          SizedBox(height: 350, child: RiveCatAnimation()),
-                        ],
-                      ),
-                    ),
-                  ],
+                if (constraints.maxWidth < 800) {
+                  return CoreSmallScreen(
+                    scrollController: _scrollController,
+                    screens: _screens,
+                    sectionKeys: _sectionKeys,
+                    scrollToIndex: _scrollToIndex,
+                  );
+                }
+                return CoreLargeScreen(
+                  scrollController: _scrollController,
+                  screens: _screens,
+                  sectionKeys: _sectionKeys,
+                  scrollToIndex: _scrollToIndex,
                 );
               },
             ),
-
             Consumer<CoreProvider>(
               builder: (context, coreProvider, child) {
                 return AnimatedPositioned(
