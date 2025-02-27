@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:me/shared/widgets/project_card.dart';
 import 'package:me/shared/widgets/section_wrapper.dart';
 
 class ProjectsView extends StatelessWidget {
@@ -8,17 +9,26 @@ class ProjectsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionWrapper(
       size: Size.fromHeight(MediaQuery.of(context).size.height),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
+          Text("Projects", style: Theme.of(context).textTheme.titleMedium),
+          Divider(),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Projects", style: Theme.of(context).textTheme.titleSmall),
-              ],
+            child: GridView.builder(
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+              ),
+              itemCount: 4,
+              itemBuilder: (context, index) {
+                return ProjectCard();
+              },
             ),
           ),
-          Expanded(child: Container()),
         ],
       ),
     );
